@@ -1,0 +1,299 @@
+### sum_to
+def sum_to(n: int) -> int:
+    return n * (n + 1) // 2
+### is_prime
+def is_prime(n: int) -> bool:
+    if n < 2:
+        return False
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            return False
+        i += 1
+    return True
+### gcd
+def gcd(a: int, b: int) -> int:
+    while b:
+        a, b = b, a % b
+    return a
+### fib
+def fib(n: int) -> int:
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+### pow_mod
+def pow_mod(b: int, e: int, m: int) -> int:
+    return pow(b, e, m)
+### sum_array
+def sum_array(xs: list[int]) -> int:
+    return sum(xs)
+### max_array
+def max_array(xs: list[int]) -> int:
+    return max(xs)
+### reverse
+def reverse(xs: list[int]) -> list[int]:
+    return xs[::-1]
+### count_evens
+def count_evens(xs: list[int]) -> int:
+    return sum(1 for x in xs if x % 2 == 0)
+### prefix_sums
+def prefix_sums(xs: list[int]) -> list[int]:
+    out, s = [], 0
+    for x in xs:
+        s += x
+        out.append(s)
+    return out
+### sort
+def sort(xs: list[int]) -> None:
+    xs.sort()
+### binary_search
+def binary_search(xs: list[int], t: int) -> int:
+    lo, hi = 0, len(xs)
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if xs[mid] < t:
+            lo = mid + 1
+        else:
+            hi = mid
+    return lo if lo < len(xs) and xs[lo] == t else -1
+### dot
+def dot(a: list[float], b: list[float]) -> float:
+    return sum((x * y for x, y in zip(a, b)), 0.0)
+### mean
+def mean(xs: list[float]) -> float:
+    return sum(xs) / len(xs)
+### dist2
+from dataclasses import dataclass
+
+@dataclass
+class Point:
+    x: int
+    y: int
+
+def dist2(a: Point, b: Point) -> int:
+    return (a.x - b.x) ** 2 + (a.y - b.y) ** 2
+### rect_area
+from dataclasses import dataclass
+
+@dataclass
+class Rect:
+    w: int
+    h: int
+
+def total_area(rs: list[Rect]) -> int:
+    return sum(r.w * r.h for r in rs)
+### collatz
+def collatz_steps(n: int) -> int:
+    s = 0
+    while n != 1:
+        n = n // 2 if n % 2 == 0 else 3 * n + 1
+        s += 1
+    return s
+### digit_sum
+def digit_sum(n: int) -> int:
+    return sum(int(c) for c in str(n))
+### count_unique
+def count_unique(xs: list[int]) -> int:
+    return len(set(xs))
+### safe_div
+def safe_div(a: int, b: int) -> int:
+    if b == 0:
+        raise ValueError("division by zero")
+    if a == -2**63 and b == -1:
+        raise ValueError("overflow")
+    q = abs(a) // abs(b)
+    return q if (a < 0) == (b < 0) else -q
+### find_index
+def find_index(xs: list[int], t: int) -> int | None:
+    for i, x in enumerate(xs):
+        if x == t:
+            return i
+    return None
+### min_pos
+def min_pos(xs: list[int]) -> int | None:
+    return min((x for x in xs if x > 0), default=None)
+### mean_checked
+def mean_checked(xs: list[float]) -> float:
+    if not xs:
+        raise ValueError("empty")
+    return sum(xs) / len(xs)
+### checked_sum
+def checked_sum(xs: list[int]) -> int:
+    s = 0
+    for x in xs:
+        s += x
+        if not -2**63 <= s <= 2**63 - 1:
+            raise ValueError("overflow")
+    return s
+### classify
+from enum import Enum
+
+class Tri(Enum):
+    EQUILATERAL = 1
+    ISOSCELES = 2
+    SCALENE = 3
+    INVALID = 4
+
+def classify(a: int, b: int, c: int) -> Tri:
+    x, y, z = sorted((a, b, c))
+    if x <= 0 or x + y <= z:
+        return Tri.INVALID
+    if x == z:
+        return Tri.EQUILATERAL
+    if x == y or y == z:
+        return Tri.ISOSCELES
+    return Tri.SCALENE
+### light
+from enum import Enum
+
+class Light(Enum):
+    RED = 1
+    GREEN = 2
+    YELLOW = 3
+
+def after(l: Light, n: int) -> Light:
+    order = [Light.RED, Light.GREEN, Light.YELLOW]
+    return order[(order.index(l) + n) % 3]
+### bank
+from dataclasses import dataclass
+
+@dataclass
+class Deposit:
+    amount: int
+
+@dataclass
+class Withdraw:
+    amount: int
+
+Tx = Deposit | Withdraw
+
+def apply(balance: int, txs: list[Tx]) -> int:
+    for t in txs:
+        if t.amount <= 0:
+            raise ValueError("invalid amount")
+        if isinstance(t, Deposit):
+            balance += t.amount
+        else:
+            if t.amount > balance:
+                raise ValueError("insufficient funds")
+            balance -= t.amount
+    return balance
+### stack_calc
+from dataclasses import dataclass
+
+@dataclass
+class Push:
+    value: int
+
+@dataclass
+class Add:
+    pass
+
+@dataclass
+class Mul:
+    pass
+
+@dataclass
+class Neg:
+    pass
+
+Op = Push | Add | Mul | Neg
+
+def calc(ops: list[Op]) -> int:
+    st: list[int] = []
+    for op in ops:
+        match op:
+            case Push(v):
+                st.append(v)
+            case Add() | Mul():
+                if len(st) < 2:
+                    raise ValueError("underflow")
+                b, a = st.pop(), st.pop()
+                st.append(a + b if isinstance(op, Add) else a * b)
+            case Neg():
+                if not st:
+                    raise ValueError("underflow")
+                st[-1] = -st[-1]
+    if not st:
+        raise ValueError("empty")
+    return st[-1]
+### last_or
+def last_or[T](xs: list[T], d: T) -> T:
+    return xs[-1] if xs else d
+### median
+def median(xs: list[int]) -> float:
+    s = sorted(xs)
+    n = len(s)
+    if n % 2:
+        return float(s[n // 2])
+    return (s[n // 2 - 1] + s[n // 2]) / 2
+### mid
+def mid(a: int, b: int) -> int:
+    s = a + b
+    return abs(s) // 2 * (1 if s >= 0 else -1)
+### mul_mod
+def mul_mod(a: int, b: int, m: int) -> int:
+    return a * b % m
+### identity
+def identity(n: int) -> list[list[int]]:
+    return [[1 if i == j else 0 for j in range(n)] for i in range(n)]
+### local_peaks
+def local_peaks(xs: list[int]) -> int:
+    n = 0
+    for i, x in enumerate(xs):
+        if (i == 0 or x > xs[i - 1]) and (i == len(xs) - 1 or x > xs[i + 1]):
+            n += 1
+    return n
+### rotate
+def rotate(xs: list[int], k: int) -> None:
+    if xs:
+        k %= len(xs)
+        xs[:] = xs[-k:] + xs[:-k] if k else xs
+### transfer
+def transfer(bal: list[int], src: int, dst: int, amt: int) -> int:
+    if not (0 <= src < len(bal) and 0 <= dst < len(bal)):
+        raise ValueError("bad account")
+    if amt <= 0:
+        raise ValueError("bad amount")
+    if bal[src] < amt:
+        raise ValueError("insufficient funds")
+    bal[src] -= amt
+    bal[dst] += amt
+    return bal[src]
+### transfer_all
+from dataclasses import dataclass
+
+@dataclass
+class Transfer:
+    src: int
+    dst: int
+    amt: int
+
+def transfer_all(bal: list[int], ts: list[Transfer]) -> int:
+    work = list(bal)
+    for t in ts:
+        if not (0 <= t.src < len(work) and 0 <= t.dst < len(work)):
+            raise ValueError("bad account")
+        if t.amt <= 0:
+            raise ValueError("bad amount")
+        if work[t.src] < t.amt:
+            raise ValueError("insufficient funds")
+        work[t.src] -= t.amt
+        work[t.dst] += t.amt
+    bal[:] = work
+    return len(ts)
+### avg_i64
+def avg_i64(xs: list[int]) -> int:
+    if not xs:
+        raise ValueError("empty")
+    s = sum(xs)
+    return abs(s) // len(xs) * (1 if s >= 0 else -1)
+### hist
+def hist(xs: list[int], lo: int, hi: int, n: int) -> list[int]:
+    w = (hi - lo) // n
+    out = [0] * n
+    for x in xs:
+        if lo <= x < hi:
+            out[(x - lo) // w] += 1
+    return out

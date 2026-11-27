@@ -1,0 +1,71 @@
+# enums, exhaustive match, Option/Result with ?, and a generic fn
+
+enum Shape {
+  Circle(f64)
+  Rect(f64, f64)
+  Empty
+} end Shape
+
+fn area(s: Shape) -> f64 {
+  match s {
+    Shape.Circle(r) => ret 3.0 * r * r
+    Shape.Rect(w, h) => ret w * h
+    Shape.Empty => ret 0.0
+  }
+} end area
+
+fn parse_shape(kind: i64, a: f64, b: f64) -> Result[Shape] {
+  if a < 0.0 or b < 0.0 { ret Err("negative size") }
+  if kind == 0 { ret Ok(Shape.Circle(a)) }
+  if kind == 1 { ret Ok(Shape.Rect(a, b)) }
+  if kind == 2 { ret Ok(Shape.Empty) }
+  ret Err("unknown kind")
+} end parse_shape
+
+fn total_area(kinds: [i64], sizes: [f64]) -> Result[f64]
+  requires len(sizes) == 2 * len(kinds)
+{
+  let mut sum = 0.0
+  for i in 0..len(kinds) {
+    let s = parse_shape(kinds[i], sizes[2 * i], sizes[2 * i + 1])?
+    sum += area(s)
+  }
+  ret Ok(sum)
+} end total_area
+
+fn first[T](xs: [T]) -> Option[T] {
+  if len(xs) == 0 { ret None }
+  ret Some(copy(xs[0]))
+} end first
+
+fn main() ! io {
+  match total_area([0, 1, 2], [1.0, 0.0, 2.0, 3.0, 0.0, 0.0]) {
+    Ok(a) => print("total", a)
+    Err(m) => print("error:", m)
+  }
+  match total_area([1, 7], [1.0, 1.0, 1.0, 1.0]) {
+    Ok(a) => print("total", a)
+    Err(m) => print("error:", m)
+  }
+} end main
+
+test area {
+  area(Shape.Circle(1.0)) == 3.0
+  area(Shape.Rect(2.0, 3.0)) == 6.0
+  area(Shape.Empty) == 0.0
+} end area
+
+test parse {
+  parse_shape(0, 2.0, 0.0) == Ok(Shape.Circle(2.0))
+  parse_shape(1, -1.0, 2.0) == Err("negative size")
+  parse_shape(9, 1.0, 1.0) == Err("unknown kind")
+  total_area([1, 1], [1.0, 2.0, 3.0, 4.0]) == Ok(14.0)
+  total_area([1, 5], [1.0, 2.0, 3.0, 4.0]) == Err("unknown kind")
+} end parse
+
+test first {
+  first([4, 5]) == Some(4)
+  let none: [str] = []
+  first(none) == None
+  first([Shape.Empty]) == Some(Shape.Empty)
+} end first

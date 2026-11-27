@@ -1,0 +1,7 @@
+test ref_checked_sum {
+  checked_sum([]) == Ok(0)
+  checked_sum([1, 2, 3]) == Ok(6)
+  checked_sum([9223372036854775807, 1]) == Err("overflow")
+  checked_sum([-9223372036854775807, -1, -1]) == Err("overflow")
+  checked_sum([9223372036854775807, -1, 1]) == Ok(9223372036854775807)
+} end ref_checked_sum

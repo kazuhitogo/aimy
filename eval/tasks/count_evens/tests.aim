@@ -1,0 +1,4 @@
+test ref_count_evens {
+  count_evens([]) == 0
+  count_evens([1, 2, 4, -6, 7]) == 3
+} end ref_count_evens

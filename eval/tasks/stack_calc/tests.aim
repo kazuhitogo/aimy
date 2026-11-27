@@ -1,0 +1,7 @@
+test ref_stack_calc {
+  calc([]) == Err("empty")
+  calc([Op.Push(2), Op.Push(3), Op.Add, Op.Push(4), Op.Mul]) == Ok(20)
+  calc([Op.Push(2), Op.Neg]) == Ok(-2)
+  calc([Op.Push(1), Op.Add]) == Err("underflow")
+  calc([Op.Neg]) == Err("underflow")
+} end ref_stack_calc

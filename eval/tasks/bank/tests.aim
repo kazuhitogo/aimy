@@ -1,0 +1,6 @@
+test ref_bank {
+  apply(10, []) == Ok(10)
+  apply(0, [Tx.Deposit(5), Tx.Withdraw(3)]) == Ok(2)
+  apply(0, [Tx.Withdraw(1), Tx.Deposit(0)]) == Err("insufficient funds")
+  apply(5, [Tx.Deposit(0)]) == Err("invalid amount")
+} end ref_bank

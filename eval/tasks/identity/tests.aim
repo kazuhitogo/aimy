@@ -1,0 +1,22 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+fn same2(a: [[i64]], b: [[i64]]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if not same(a[i], b[i]) { ret false }
+  }
+  ret true
+} end same2
+
+test ref_identity {
+  let e: [[i64]] = []
+  same2(identity(0), e)
+  same2(identity(1), [[1]])
+  same2(identity(3), [[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+} end ref_identity

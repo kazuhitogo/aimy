@@ -1,0 +1,10 @@
+median_terse
+mid_terse
+mul_mod_terse
+identity_terse
+local_peaks_terse
+rotate_terse
+transfer_terse
+transfer_all_terse
+avg_i64_terse
+hist_terse

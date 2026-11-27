@@ -1,0 +1,6 @@
+test ref_binary_search {
+  binary_search([], 1) == -1
+  binary_search([1, 3, 5, 7], 5) == 2
+  binary_search([1, 3, 5, 7], 1) == 0
+  binary_search([1, 3, 5, 7], 4) == -1
+} end ref_binary_search

@@ -1,0 +1,26 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+test ref_transfer_all {
+  let mut b0 = [10, 0, 0]
+  transfer_all(mut b0, [Transfer{src: 0, dst: 1, amt: 5}, Transfer{src: 1, dst: 2, amt: 5}]) == Ok(2)
+  same(b0, [5, 0, 5])
+  let t1: [Transfer] = []
+  let mut b1 = [10, 0, 0]
+  transfer_all(mut b1, t1) == Ok(0)
+  same(b1, [10, 0, 0])
+  let mut b2 = [10, 0, 0]
+  transfer_all(mut b2, [Transfer{src: 0, dst: 1, amt: 5}, Transfer{src: 1, dst: 2, amt: 6}]) == Err("insufficient funds")
+  same(b2, [10, 0, 0])
+  let mut b3 = [10, 0, 0]
+  transfer_all(mut b3, [Transfer{src: 0, dst: 1, amt: 5}, Transfer{src: 0, dst: 2, amt: 5}, Transfer{src: 2, dst: 3, amt: 1}]) == Err("bad account")
+  same(b3, [10, 0, 0])
+  let mut b4 = [10, 0]
+  transfer_all(mut b4, [Transfer{src: 0, dst: 1, amt: 4}, Transfer{src: 1, dst: 0, amt: 4}, Transfer{src: 0, dst: 1, amt: 0}]) == Err("bad amount")
+  same(b4, [10, 0])
+} end ref_transfer_all

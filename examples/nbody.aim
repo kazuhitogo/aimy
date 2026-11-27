@@ -1,0 +1,110 @@
+# N-body simulation (Computer Language Benchmarks Game).
+# Usage: aimy run examples/nbody.aim STEPS
+
+struct Body { x: f64, y: f64, z: f64, vx: f64, vy: f64, vz: f64, m: f64 } end Body
+
+fn solar_mass() -> f64 { ret 4.0 * 3.141592653589793 * 3.141592653589793 } end solar_mass
+fn days() -> f64 { ret 365.24 } end days
+
+fn planets() -> [Body] {
+  let sm = solar_mass()
+  let d = days()
+  ret [
+    Body{x: 0.0, y: 0.0, z: 0.0, vx: 0.0, vy: 0.0, vz: 0.0, m: sm},
+    Body{x: 4.84143144246472090e+00, y: -1.16032004402742839e+00, z: -1.03622044471123109e-01,
+         vx: 1.66007664274403694e-03 * d, vy: 7.69901118419740425e-03 * d, vz: -6.90460016972063023e-05 * d,
+         m: 9.54791938424326609e-04 * sm},
+    Body{x: 8.34336671824457987e+00, y: 4.12479856412430479e+00, z: -4.03523417114321381e-01,
+         vx: -2.76742510726862411e-03 * d, vy: 4.99852801234917238e-03 * d, vz: 2.30417297573763929e-05 * d,
+         m: 2.85885980666130812e-04 * sm},
+    Body{x: 1.28943695621391310e+01, y: -1.51111514016986312e+01, z: -2.23307578892655734e-01,
+         vx: 2.96460137564761618e-03 * d, vy: 2.37847173959480950e-03 * d, vz: -2.96589568540237556e-05 * d,
+         m: 4.36624404335156298e-05 * sm},
+    Body{x: 1.53796971148509165e+01, y: -2.59193146099879641e+01, z: 1.79258772950371181e-01,
+         vx: 2.68067772490389322e-03 * d, vy: 1.62824170038242295e-03 * d, vz: -9.51592254519715870e-05 * d,
+         m: 5.15138902046611451e-05 * sm}
+  ]
+} end planets
+
+fn offset_momentum(mut bs: [Body]) {
+  let mut px = 0.0
+  let mut py = 0.0
+  let mut pz = 0.0
+  for i in 0..len(bs) {
+    px += bs[i].vx * bs[i].m
+    py += bs[i].vy * bs[i].m
+    pz += bs[i].vz * bs[i].m
+  }
+  let sm = solar_mass()
+  bs[0].vx = 0.0 - px / sm
+  bs[0].vy = 0.0 - py / sm
+  bs[0].vz = 0.0 - pz / sm
+} end offset_momentum
+
+fn energy(bs: [Body]) -> f64 {
+  let mut e = 0.0
+  let n = len(bs)
+  for i in 0..n {
+    let b = bs[i]
+    e += 0.5 * b.m * (b.vx * b.vx + b.vy * b.vy + b.vz * b.vz)
+    for j in i + 1..n {
+      let c = bs[j]
+      let dx = b.x - c.x
+      let dy = b.y - c.y
+      let dz = b.z - c.z
+      e -= b.m * c.m / sqrt(dx * dx + dy * dy + dz * dz)
+    }
+  }
+  ret e
+} end energy
+
+fn pull(mut a: Body, mut b: Body, dt: f64) {
+  let dx = a.x - b.x
+  let dy = a.y - b.y
+  let dz = a.z - b.z
+  let d2 = dx * dx + dy * dy + dz * dz
+  let mag = dt / (d2 * sqrt(d2))
+  a.vx -= dx * b.m * mag
+  a.vy -= dy * b.m * mag
+  a.vz -= dz * b.m * mag
+  b.vx += dx * a.m * mag
+  b.vy += dy * a.m * mag
+  b.vz += dz * a.m * mag
+} end pull
+
+fn advance(mut bs: [Body], dt: f64) {
+  let n = len(bs)
+  for i in 0..n {
+    for j in i + 1..n {
+      let mut b = bs[j]
+      pull(mut bs[i], mut b, dt)
+      bs[j] = b
+    }
+  }
+  for i in 0..n {
+    bs[i].x += dt * bs[i].vx
+    bs[i].y += dt * bs[i].vy
+    bs[i].z += dt * bs[i].vz
+  }
+} end advance
+
+fn main() ! io {
+  let steps = arg(0)
+  let mut bs = planets()
+  offset_momentum(mut bs)
+  print(energy(bs))
+  for _s in 0..steps {
+    advance(mut bs, 0.01)
+  }
+  print(energy(bs))
+} end main
+
+test energy_is_conserved {
+  let mut bs = planets()
+  offset_momentum(mut bs)
+  let e0 = energy(bs)
+  for _s in 0..1000 {
+    advance(mut bs, 0.01)
+  }
+  abs(energy(bs) - e0) < 0.0001
+} end energy_is_conserved

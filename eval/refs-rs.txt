@@ -1,0 +1,325 @@
+### sum_to
+fn sum_to(n: i64) -> i64 {
+    n * (n + 1) / 2
+}
+### is_prime
+fn is_prime(n: i64) -> bool {
+    if n < 2 {
+        return false;
+    }
+    let mut i = 2;
+    while i * i <= n {
+        if n % i == 0 {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+### gcd
+fn gcd(mut a: i64, mut b: i64) -> i64 {
+    while b != 0 {
+        let t = a % b;
+        a = b;
+        b = t;
+    }
+    a
+}
+### fib
+fn fib(n: i64) -> i64 {
+    let (mut a, mut b) = (0i64, 1i64);
+    for _ in 0..n {
+        let t = a + b;
+        a = b;
+        b = t;
+    }
+    a
+}
+### pow_mod
+fn pow_mod(b: i64, mut e: i64, m: i64) -> i64 {
+    let mut r = 1 % m;
+    let mut x = b % m;
+    while e > 0 {
+        if e & 1 == 1 {
+            r = r * x % m;
+        }
+        x = x * x % m;
+        e >>= 1;
+    }
+    r
+}
+### sum_array
+fn sum_array(xs: &[i64]) -> i64 {
+    xs.iter().sum()
+}
+### max_array
+fn max_array(xs: &[i64]) -> i64 {
+    *xs.iter().max().unwrap()
+}
+### reverse
+fn reverse(xs: &[i64]) -> Vec<i64> {
+    xs.iter().rev().copied().collect()
+}
+### count_evens
+fn count_evens(xs: &[i64]) -> i64 {
+    xs.iter().filter(|x| *x % 2 == 0).count() as i64
+}
+### prefix_sums
+fn prefix_sums(xs: &[i64]) -> Vec<i64> {
+    let mut s = 0;
+    xs.iter().map(|x| { s += x; s }).collect()
+}
+### sort
+fn sort(xs: &mut [i64]) {
+    xs.sort();
+}
+### binary_search
+fn binary_search(xs: &[i64], t: i64) -> i64 {
+    match xs.binary_search(&t) {
+        Ok(i) => i as i64,
+        Err(_) => -1,
+    }
+}
+### dot
+fn dot(a: &[f64], b: &[f64]) -> f64 {
+    a.iter().zip(b).map(|(x, y)| x * y).sum()
+}
+### mean
+fn mean(xs: &[f64]) -> f64 {
+    xs.iter().sum::<f64>() / xs.len() as f64
+}
+### dist2
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct Point { x: i64, y: i64 }
+
+fn dist2(a: Point, b: Point) -> i64 {
+    let (dx, dy) = (a.x - b.x, a.y - b.y);
+    dx * dx + dy * dy
+}
+### rect_area
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct Rect { w: i64, h: i64 }
+
+fn total_area(rs: &[Rect]) -> i64 {
+    rs.iter().map(|r| r.w * r.h).sum()
+}
+### collatz
+fn collatz_steps(mut n: i64) -> i64 {
+    let mut s = 0;
+    while n != 1 {
+        n = if n % 2 == 0 { n / 2 } else { 3 * n + 1 };
+        s += 1;
+    }
+    s
+}
+### digit_sum
+fn digit_sum(mut n: i64) -> i64 {
+    let mut s = 0;
+    while n > 0 {
+        s += n % 10;
+        n /= 10;
+    }
+    s
+}
+### count_unique
+fn count_unique(xs: &[i64]) -> i64 {
+    xs.iter().collect::<std::collections::HashSet<_>>().len() as i64
+}
+### safe_div
+fn safe_div(a: i64, b: i64) -> Result<i64, String> {
+    if b == 0 {
+        return Err("division by zero".to_string());
+    }
+    a.checked_div(b).ok_or_else(|| "overflow".to_string())
+}
+### find_index
+fn find_index(xs: &[i64], t: i64) -> Option<i64> {
+    xs.iter().position(|&x| x == t).map(|i| i as i64)
+}
+### min_pos
+fn min_pos(xs: &[i64]) -> Option<i64> {
+    xs.iter().copied().filter(|&x| x > 0).min()
+}
+### mean_checked
+fn mean_checked(xs: &[f64]) -> Result<f64, String> {
+    if xs.is_empty() {
+        return Err("empty".to_string());
+    }
+    Ok(xs.iter().sum::<f64>() / xs.len() as f64)
+}
+### checked_sum
+fn checked_sum(xs: &[i64]) -> Result<i64, String> {
+    let mut s: i64 = 0;
+    for &x in xs {
+        s = s.checked_add(x).ok_or_else(|| "overflow".to_string())?;
+    }
+    Ok(s)
+}
+### classify
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum Tri { Equilateral, Isosceles, Scalene, Invalid }
+
+fn classify(a: i64, b: i64, c: i64) -> Tri {
+    let mut v = [a, b, c];
+    v.sort();
+    if v[0] <= 0 || v[0] + v[1] <= v[2] {
+        Tri::Invalid
+    } else if v[0] == v[2] {
+        Tri::Equilateral
+    } else if v[0] == v[1] || v[1] == v[2] {
+        Tri::Isosceles
+    } else {
+        Tri::Scalene
+    }
+}
+### light
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum Light { Red, Green, Yellow }
+
+fn after(l: Light, n: i64) -> Light {
+    let order = [Light::Red, Light::Green, Light::Yellow];
+    let i = order.iter().position(|&x| x == l).unwrap() as i64;
+    order[((i + n % 3) % 3) as usize]
+}
+### bank
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum Tx { Deposit(i64), Withdraw(i64) }
+
+fn apply(mut balance: i64, txs: &[Tx]) -> Result<i64, String> {
+    for t in txs {
+        match *t {
+            Tx::Deposit(a) | Tx::Withdraw(a) if a <= 0 => return Err("invalid amount".to_string()),
+            Tx::Deposit(a) => balance += a,
+            Tx::Withdraw(a) => {
+                if a > balance {
+                    return Err("insufficient funds".to_string());
+                }
+                balance -= a;
+            }
+        }
+    }
+    Ok(balance)
+}
+### stack_calc
+#[derive(Debug, Clone, Copy, PartialEq)]
+enum Op { Push(i64), Add, Mul, Neg }
+
+fn calc(ops: &[Op]) -> Result<i64, String> {
+    let mut st: Vec<i64> = Vec::new();
+    let under = || "underflow".to_string();
+    for op in ops {
+        match *op {
+            Op::Push(v) => st.push(v),
+            Op::Add | Op::Mul => {
+                let b = st.pop().ok_or_else(under)?;
+                let a = st.pop().ok_or_else(under)?;
+                st.push(if *op == Op::Add { a + b } else { a * b });
+            }
+            Op::Neg => {
+                let a = st.pop().ok_or_else(under)?;
+                st.push(-a);
+            }
+        }
+    }
+    st.last().copied().ok_or_else(|| "empty".to_string())
+}
+### last_or
+fn last_or<T: Clone>(xs: &[T], d: T) -> T {
+    xs.last().cloned().unwrap_or(d)
+}
+### median
+fn median(xs: &[i64]) -> f64 {
+    let mut s = xs.to_vec();
+    s.sort();
+    let n = s.len();
+    if n % 2 == 1 {
+        s[n / 2] as f64
+    } else {
+        (s[n / 2 - 1] as f64 + s[n / 2] as f64) / 2.0
+    }
+}
+### mid
+fn mid(a: i64, b: i64) -> i64 {
+    ((a as i128 + b as i128) / 2) as i64
+}
+### mul_mod
+fn mul_mod(a: i64, b: i64, m: i64) -> i64 {
+    (a as i128 * b as i128 % m as i128) as i64
+}
+### identity
+fn identity(n: i64) -> Vec<Vec<i64>> {
+    let n = n as usize;
+    (0..n).map(|i| (0..n).map(|j| (i == j) as i64).collect()).collect()
+}
+### local_peaks
+fn local_peaks(xs: &[i64]) -> i64 {
+    let n = xs.len();
+    (0..n).filter(|&i| (i == 0 || xs[i] > xs[i - 1]) && (i + 1 == n || xs[i] > xs[i + 1])).count() as i64
+}
+### rotate
+fn rotate(xs: &mut [i64], k: i64) {
+    if xs.is_empty() {
+        return;
+    }
+    let s = k.rem_euclid(xs.len() as i64) as usize;
+    xs.rotate_right(s);
+}
+### transfer
+fn transfer(bal: &mut [i64], src: i64, dst: i64, amt: i64) -> Result<i64, String> {
+    let n = bal.len() as i64;
+    if src < 0 || src >= n || dst < 0 || dst >= n {
+        return Err("bad account".to_string());
+    }
+    if amt <= 0 {
+        return Err("bad amount".to_string());
+    }
+    let (s, d) = (src as usize, dst as usize);
+    if bal[s] < amt {
+        return Err("insufficient funds".to_string());
+    }
+    bal[s] -= amt;
+    bal[d] += amt;
+    Ok(bal[s])
+}
+### transfer_all
+#[derive(Debug, Clone, Copy, PartialEq)]
+struct Transfer { src: i64, dst: i64, amt: i64 }
+
+fn transfer_all(bal: &mut [i64], ts: &[Transfer]) -> Result<i64, String> {
+    let mut work = bal.to_vec();
+    let n = work.len() as i64;
+    for t in ts {
+        if t.src < 0 || t.src >= n || t.dst < 0 || t.dst >= n {
+            return Err("bad account".to_string());
+        }
+        if t.amt <= 0 {
+            return Err("bad amount".to_string());
+        }
+        if work[t.src as usize] < t.amt {
+            return Err("insufficient funds".to_string());
+        }
+        work[t.src as usize] -= t.amt;
+        work[t.dst as usize] += t.amt;
+    }
+    bal.copy_from_slice(&work);
+    Ok(ts.len() as i64)
+}
+### avg_i64
+fn avg_i64(xs: &[i64]) -> Result<i64, String> {
+    if xs.is_empty() {
+        return Err("empty".to_string());
+    }
+    let s: i128 = xs.iter().map(|&x| x as i128).sum();
+    Ok((s / xs.len() as i128) as i64)
+}
+### hist
+fn hist(xs: &[i64], lo: i64, hi: i64, n: i64) -> Vec<i64> {
+    let w = (hi - lo) / n;
+    let mut out = vec![0; n as usize];
+    for &x in xs {
+        if x >= lo && x < hi {
+            out[((x - lo) / w) as usize] += 1;
+        }
+    }
+    out
+}

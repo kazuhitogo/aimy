@@ -1,0 +1,4 @@
+test ref_dist2 {
+  dist2(Point{x: 0, y: 0}, Point{x: 3, y: 4}) == 25
+  dist2(Point{x: -1, y: -1}, Point{x: -1, y: -1}) == 0
+} end ref_dist2

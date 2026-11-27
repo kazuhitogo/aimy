@@ -1,0 +1,5 @@
+test ref_collatz {
+  collatz_steps(1) == 0
+  collatz_steps(6) == 8
+  collatz_steps(27) == 111
+} end ref_collatz

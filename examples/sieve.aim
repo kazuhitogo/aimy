@@ -1,0 +1,37 @@
+# Count primes below N with the sieve of Eratosthenes.
+
+fn count_primes(n: i64) -> i64
+  requires n >= 2
+{
+  let mut is = fill(n, true)
+  is[0] = false
+  is[1] = false
+  let mut i = 2
+  while i * i < n {
+    if is[i] { cross_out(mut is, i) }
+    i += 1
+  }
+  let mut c = 0
+  for k in 0..n {
+    if is[k] { c += 1 }
+  }
+  ret c
+} end count_primes
+
+fn cross_out(mut is: [bool], p: i64) {
+  let mut j = p * p
+  while j < len(is) {
+    is[j] = false
+    j += p
+  }
+} end cross_out
+
+fn main() ! io {
+  print(count_primes(arg(0)))
+} end main
+
+test small {
+  count_primes(2) == 0
+  count_primes(10) == 4
+  count_primes(100) == 25
+} end small

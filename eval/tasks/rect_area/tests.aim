@@ -1,0 +1,4 @@
+test ref_rect_area {
+  total_area([]) == 0
+  total_area([Rect{w: 2, h: 3}, Rect{w: 4, h: 5}]) == 26
+} end ref_rect_area

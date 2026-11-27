@@ -1,0 +1,10 @@
+median
+mid
+mul_mod
+identity
+local_peaks
+rotate
+transfer
+transfer_all
+avg_i64
+hist

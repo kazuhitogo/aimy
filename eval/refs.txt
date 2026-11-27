@@ -1,0 +1,434 @@
+### sum_to
+fn sum_to(n: i64) -> i64 {
+  let mut s = 0
+  for i in 1..(n + 1) { s += i }
+  ret s
+} end sum_to
+### is_prime
+fn is_prime(n: i64) -> bool {
+  if n < 2 { ret false }
+  let mut i = 2
+  while i * i <= n {
+    if n % i == 0 { ret false }
+    i += 1
+  }
+  ret true
+} end is_prime
+### gcd
+fn gcd(a: i64, b: i64) -> i64 {
+  let mut x = a
+  let mut y = b
+  while y != 0 {
+    let t = x % y
+    x = y
+    y = t
+  }
+  ret x
+} end gcd
+### fib
+fn fib(n: i64) -> i64 {
+  let mut a = 0
+  let mut b = 1
+  for i in 0..n {
+    let t = a + b
+    a = b
+    b = t
+  }
+  ret a
+} end fib
+### pow_mod
+fn pow_mod(b: i64, e: i64, m: i64) -> i64 {
+  let mut r = 1 % m
+  let mut base = b % m
+  let mut k = e
+  while k > 0 {
+    if k % 2 == 1 { r = r * base % m }
+    base = base * base % m
+    k = k / 2
+  }
+  ret r
+} end pow_mod
+### sum_array
+fn sum_array(xs: [i64]) -> i64 {
+  let mut s = 0
+  for i in 0..len(xs) { s += xs[i] }
+  ret s
+} end sum_array
+### max_array
+fn max_array(xs: [i64]) -> i64
+  requires len(xs) > 0
+{
+  let mut m = xs[0]
+  for i in 1..len(xs) { m = max(m, xs[i]) }
+  ret m
+} end max_array
+### reverse
+fn reverse(xs: [i64]) -> [i64] {
+  let mut out: [i64] = []
+  let mut i = len(xs)
+  while i > 0 {
+    i -= 1
+    push(mut out, xs[i])
+  }
+  ret out
+} end reverse
+### count_evens
+fn count_evens(xs: [i64]) -> i64 {
+  let mut c = 0
+  for i in 0..len(xs) {
+    if xs[i] % 2 == 0 { c += 1 }
+  }
+  ret c
+} end count_evens
+### prefix_sums
+fn prefix_sums(xs: [i64]) -> [i64] {
+  let mut out: [i64] = []
+  let mut s = 0
+  for i in 0..len(xs) {
+    s += xs[i]
+    push(mut out, s)
+  }
+  ret out
+} end prefix_sums
+### sort
+fn sort(mut xs: [i64]) {
+  let n = len(xs)
+  for i in 0..n {
+    for j in 0..(n - 1 - i) {
+      if xs[j] > xs[j + 1] {
+        let t = xs[j]
+        xs[j] = xs[j + 1]
+        xs[j + 1] = t
+      }
+    }
+  }
+} end sort
+### binary_search
+fn binary_search(xs: [i64], t: i64) -> i64 {
+  let mut lo = 0
+  let mut hi = len(xs) - 1
+  while lo <= hi {
+    let mid = lo + (hi - lo) / 2
+    if xs[mid] == t { ret mid }
+    if xs[mid] < t { lo = mid + 1 } else { hi = mid - 1 }
+  }
+  ret -1
+} end binary_search
+### dot
+fn dot(a: [f64], b: [f64]) -> f64
+  requires len(a) == len(b)
+{
+  let mut s = 0.0
+  for i in 0..len(a) { s += a[i] * b[i] }
+  ret s
+} end dot
+### mean
+fn mean(xs: [f64]) -> f64
+  requires len(xs) > 0
+{
+  let mut s = 0.0
+  for i in 0..len(xs) { s += xs[i] }
+  ret s / f64(len(xs))
+} end mean
+### dist2
+struct Point { x: i64, y: i64 } end Point
+
+fn dist2(a: Point, b: Point) -> i64 {
+  let dx = a.x - b.x
+  let dy = a.y - b.y
+  ret dx * dx + dy * dy
+} end dist2
+### rect_area
+struct Rect { w: i64, h: i64 } end Rect
+
+fn total_area(rs: [Rect]) -> i64 {
+  let mut s = 0
+  for i in 0..len(rs) { s += rs[i].w * rs[i].h }
+  ret s
+} end total_area
+### collatz
+fn collatz_steps(n: i64) -> i64
+  requires n >= 1
+{
+  let mut x = n
+  let mut c = 0
+  while x != 1 {
+    if x % 2 == 0 { x = x / 2 } else { x = 3 * x + 1 }
+    c += 1
+  }
+  ret c
+} end collatz_steps
+### digit_sum
+fn digit_sum(n: i64) -> i64
+  requires n >= 0
+{
+  let mut x = n
+  let mut s = 0
+  while x > 0 {
+    s += x % 10
+    x = x / 10
+  }
+  ret s
+} end digit_sum
+### count_unique
+fn count_unique(xs: [i64]) -> i64 {
+  let mut c = 0
+  for i in 0..len(xs) {
+    let mut seen = false
+    for j in 0..i {
+      if xs[j] == xs[i] { seen = true }
+    }
+    if not seen { c += 1 }
+  }
+  ret c
+} end count_unique
+### safe_div
+fn safe_div(a: i64, b: i64) -> Result[i64] {
+  if b == 0 { ret Err("division by zero") }
+  if a == -9223372036854775808 and b == -1 { ret Err("overflow") }
+  ret Ok(a / b)
+} end safe_div
+### find_index
+fn find_index(xs: [i64], t: i64) -> Option[i64] {
+  for i in 0..len(xs) {
+    if xs[i] == t { ret Some(i) }
+  }
+  ret None
+} end find_index
+### min_pos
+fn min_pos(xs: [i64]) -> Option[i64] {
+  let mut best = 0
+  for i in 0..len(xs) {
+    if xs[i] > 0 and (best == 0 or xs[i] < best) { best = xs[i] }
+  }
+  if best == 0 { ret None }
+  ret Some(best)
+} end min_pos
+### mean_checked
+fn mean_checked(xs: [f64]) -> Result[f64] {
+  if len(xs) == 0 { ret Err("empty") }
+  let mut s = 0.0
+  for i in 0..len(xs) { s += xs[i] }
+  ret Ok(s / f64(len(xs)))
+} end mean_checked
+### checked_sum
+fn checked_sum(xs: [i64]) -> Result[i64] {
+  let mut s = 0
+  for i in 0..len(xs) {
+    let x = xs[i]
+    if x > 0 and s > 9223372036854775807 - x { ret Err("overflow") }
+    if x < 0 and s < -9223372036854775808 - x { ret Err("overflow") }
+    s += x
+  }
+  ret Ok(s)
+} end checked_sum
+### classify
+enum Tri { Equilateral, Isosceles, Scalene, Invalid } end Tri
+
+fn classify(a: i64, b: i64, c: i64) -> Tri {
+  if a <= 0 or b <= 0 or c <= 0 { ret Tri.Invalid }
+  let hi = max(a, max(b, c))
+  if a + b + c - hi <= hi { ret Tri.Invalid }
+  if a == b and b == c { ret Tri.Equilateral }
+  if a == b or b == c or a == c { ret Tri.Isosceles }
+  ret Tri.Scalene
+} end classify
+### light
+enum Light { Red, Green, Yellow } end Light
+
+fn next(l: Light) -> Light {
+  match l {
+    Light.Red => ret Light.Green
+    Light.Green => ret Light.Yellow
+    Light.Yellow => ret Light.Red
+  }
+} end next
+
+fn after(l: Light, n: i64) -> Light
+  requires n >= 0
+{
+  let mut cur = l
+  for _ in 0..n % 3 { cur = next(cur) }
+  ret cur
+} end after
+### bank
+enum Tx { Deposit(i64), Withdraw(i64) } end Tx
+
+fn apply(balance: i64, txs: [Tx]) -> Result[i64] {
+  let mut b = balance
+  for i in 0..len(txs) {
+    match txs[i] {
+      Tx.Deposit(a) => {
+        if a <= 0 { ret Err("invalid amount") }
+        b += a
+      }
+      Tx.Withdraw(a) => {
+        if a <= 0 { ret Err("invalid amount") }
+        if a > b { ret Err("insufficient funds") }
+        b -= a
+      }
+    }
+  }
+  ret Ok(b)
+} end apply
+### stack_calc
+enum Op { Push(i64), Add, Mul, Neg } end Op
+
+fn step(mut st: [i64], op: Op) -> Result[i64] {
+  match op {
+    Op.Push(v) => push(mut st, v)
+    Op.Neg => {
+      if len(st) < 1 { ret Err("underflow") }
+      let x = pop(mut st)
+      push(mut st, -x)
+    }
+    _ => {
+      if len(st) < 2 { ret Err("underflow") }
+      let b = pop(mut st)
+      let a = pop(mut st)
+      if op == Op.Add { push(mut st, a + b) } else { push(mut st, a * b) }
+    }
+  }
+  ret Ok(0)
+} end step
+
+fn calc(ops: [Op]) -> Result[i64] {
+  let mut st: [i64] = []
+  for i in 0..len(ops) {
+    let _ = step(mut st, ops[i])?
+  }
+  if len(st) == 0 { ret Err("empty") }
+  ret Ok(st[len(st) - 1])
+} end calc
+### last_or
+fn last_or[T](xs: [T], d: T) -> T {
+  if len(xs) == 0 { ret copy(d) }
+  ret copy(xs[len(xs) - 1])
+} end last_or
+### median
+fn sorted(xs: [i64]) -> [i64] {
+  let mut s = copy(xs)
+  for i in 1..len(s) {
+    let mut j = i
+    while j > 0 and s[j - 1] > s[j] {
+      let t = s[j]
+      s[j] = s[j - 1]
+      s[j - 1] = t
+      j -= 1
+    }
+  }
+  ret s
+} end sorted
+
+fn median(xs: [i64]) -> f64
+  requires len(xs) > 0
+{
+  let s = sorted(xs)
+  let n = len(s)
+  if n % 2 == 1 { ret f64(s[n / 2]) }
+  ret (f64(s[n / 2 - 1]) + f64(s[n / 2])) / 2.0
+} end median
+### mid
+fn mid(a: i64, b: i64) -> i64 {
+  if (a >= 0) != (b >= 0) { ret (a + b) / 2 }
+  ret a / 2 + b / 2 + (a % 2 + b % 2) / 2
+} end mid
+### mul_mod
+fn mul_mod(a: i64, b: i64, m: i64) -> i64 {
+  let mut r = 0
+  let mut x = a % m
+  let mut e = b
+  while e > 0 {
+    if e % 2 == 1 { r = (r + x) % m }
+    x = (x + x) % m
+    e /= 2
+  }
+  ret r
+} end mul_mod
+### identity
+fn identity(n: i64) -> [[i64]] {
+  let mut g = fill(n, fill(n, 0))
+  for i in 0..n {
+    g[i][i] = 1
+  }
+  ret g
+} end identity
+### local_peaks
+fn local_peaks(xs: [i64]) -> i64 {
+  let mut c = 0
+  let n = len(xs)
+  for i in 0..n {
+    let left = i == 0 or xs[i] > xs[max(i - 1, 0)]
+    let right = i == n - 1 or xs[i] > xs[min(i + 1, n - 1)]
+    if left and right { c += 1 }
+  }
+  ret c
+} end local_peaks
+### rotate
+fn rotate(mut xs: [i64], k: i64) {
+  let n = len(xs)
+  if n == 0 { ret }
+  let s = (k % n + n) % n
+  let t = copy(xs)
+  for i in 0..n {
+    xs[(i + s) % n] = t[i]
+  }
+} end rotate
+### transfer
+fn transfer(mut bal: [i64], src: i64, dst: i64, amt: i64) -> Result[i64] {
+  let n = len(bal)
+  if src < 0 or src >= n or dst < 0 or dst >= n { ret Err("bad account") }
+  if amt <= 0 { ret Err("bad amount") }
+  if bal[src] < amt { ret Err("insufficient funds") }
+  bal[src] -= amt
+  bal[dst] += amt
+  ret Ok(bal[src])
+} end transfer
+### transfer_all
+struct Transfer { src: i64, dst: i64, amt: i64 } end Transfer
+
+fn step(mut bal: [i64], t: Transfer) -> Result[i64] {
+  let n = len(bal)
+  if t.src < 0 or t.src >= n or t.dst < 0 or t.dst >= n { ret Err("bad account") }
+  if t.amt <= 0 { ret Err("bad amount") }
+  if bal[t.src] < t.amt { ret Err("insufficient funds") }
+  bal[t.src] -= t.amt
+  bal[t.dst] += t.amt
+  ret Ok(0)
+} end step
+
+fn transfer_all(mut bal: [i64], ts: [Transfer]) -> Result[i64] {
+  let mut work = copy(bal)
+  for i in 0..len(ts) {
+    let _ = step(mut work, ts[i])?
+  }
+  bal = copy(work)
+  ret Ok(len(ts))
+} end transfer_all
+### avg_i64
+fn avg_i64(xs: [i64]) -> Result[i64] {
+  let n = len(xs)
+  if n == 0 { ret Err("empty") }
+  let mut q = 0
+  let mut r = 0
+  for i in 0..n {
+    q += xs[i] / n
+    r += xs[i] % n
+  }
+  let q2 = q + r / n
+  let r2 = r % n
+  if q2 > 0 and r2 < 0 { ret Ok(q2 - 1) }
+  if q2 < 0 and r2 > 0 { ret Ok(q2 + 1) }
+  ret Ok(q2)
+} end avg_i64
+### hist
+fn hist(xs: [i64], lo: i64, hi: i64, n: i64) -> [i64]
+  requires n >= 1 and lo < hi
+{
+  let w = (hi - lo) / n
+  let mut out = fill(n, 0)
+  for i in 0..len(xs) {
+    if xs[i] >= lo and xs[i] < hi { out[(xs[i] - lo) / w] += 1 }
+  }
+  ret out
+} end hist

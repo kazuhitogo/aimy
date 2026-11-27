@@ -1,0 +1,5 @@
+test ref_find_index {
+  find_index([], 1) == None
+  find_index([4, 7, 7], 7) == Some(1)
+  find_index([4, 7], 5) == None
+} end ref_find_index

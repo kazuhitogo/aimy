@@ -1,0 +1,5 @@
+test ref_min_pos {
+  min_pos([]) == None
+  min_pos([-1, 0]) == None
+  min_pos([5, -3, 2, 9]) == Some(2)
+} end ref_min_pos

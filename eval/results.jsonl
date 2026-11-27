@@ -1,0 +1,20 @@
+{"task": "binary_search", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 303}
+{"task": "collatz", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 231}
+{"task": "count_evens", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 148}
+{"task": "count_unique", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 280}
+{"task": "digit_sum", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 152}
+{"task": "dist2", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 159}
+{"task": "dot", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 148}
+{"task": "fib", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 152}
+{"task": "gcd", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 177}
+{"task": "is_prime", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 247}
+{"task": "max_array", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 169}
+{"task": "mean", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 146}
+{"task": "pow_mod", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 247}
+{"task": "prefix_sums", "first_compile": false, "first_pass": false, "rounds": 1, "passed": true, "chars_out": 348}
+{"task": "rect_area", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 178}
+{"task": "reverse", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 162}
+{"task": "sort", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 219}
+{"task": "sum_array", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 128}
+{"task": "sum_to", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 131}
+{"summary": {"tasks": 19, "first_compile": 18, "first_pass": 18, "passed": 19, "avg_rounds": 0.05, "chars_out": 3725}}

@@ -1,0 +1,20 @@
+[project]
+name = "aimy"
+version = "0.2.0"
+description = "aimy (読み: あいまい): 曖昧さゼロの、私のAIのためのプログラミング言語"
+readme = "README.md"
+authors = [
+    { name = "Kazuhito Go", email = "kazuhito.go.ys@hitachi.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+aimy = "aimy.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8"]

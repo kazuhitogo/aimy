@@ -1,0 +1,12 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+test ref_prefix_sums {
+  same(prefix_sums([]), [])
+  same(prefix_sums([1, 2, 3, 4]), [1, 3, 6, 10])
+} end ref_prefix_sums

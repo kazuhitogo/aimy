@@ -1,0 +1,8 @@
+test ref_classify {
+  classify(3, 3, 3) == Tri.Equilateral
+  classify(3, 3, 5) == Tri.Isosceles
+  classify(5, 3, 3) == Tri.Isosceles
+  classify(3, 4, 5) == Tri.Scalene
+  classify(1, 2, 3) == Tri.Invalid
+  classify(0, 1, 1) == Tri.Invalid
+} end ref_classify

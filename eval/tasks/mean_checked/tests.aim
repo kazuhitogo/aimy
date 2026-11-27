@@ -1,0 +1,4 @@
+test ref_mean_checked {
+  mean_checked([]) == Err("empty")
+  mean_checked([1.0, 2.0]) == Ok(1.5)
+} end ref_mean_checked

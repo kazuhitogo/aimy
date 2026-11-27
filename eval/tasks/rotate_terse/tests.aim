@@ -1,0 +1,31 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+test ref_rotate {
+  let mut a0 = [1, 2, 3, 4, 5]
+  rotate(mut a0, 2)
+  same(a0, [4, 5, 1, 2, 3])
+  let mut a1 = [1, 2, 3, 4, 5]
+  rotate(mut a1, -1)
+  same(a1, [2, 3, 4, 5, 1])
+  let mut a2 = [1, 2, 3, 4, 5]
+  rotate(mut a2, 7)
+  same(a2, [4, 5, 1, 2, 3])
+  let mut a3 = [1, 2, 3]
+  rotate(mut a3, 0)
+  same(a3, [1, 2, 3])
+  let mut a4 = [1, 2, 3, 4, 5]
+  rotate(mut a4, -9223372036854775808)
+  same(a4, [4, 5, 1, 2, 3])
+  let mut a5 = [1, 2, 3, 4, 5]
+  rotate(mut a5, 9223372036854775807)
+  same(a5, [4, 5, 1, 2, 3])
+  let mut e: [i64] = []
+  rotate(mut e, 3)
+  len(e) == 0
+} end ref_rotate

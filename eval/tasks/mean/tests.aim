@@ -1,0 +1,4 @@
+test ref_mean {
+  mean([2.0, 4.0]) == 3.0
+  mean([5.0]) == 5.0
+} end ref_mean

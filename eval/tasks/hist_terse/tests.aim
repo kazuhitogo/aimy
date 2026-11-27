@@ -1,0 +1,16 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+test ref_hist {
+  same(hist([0, 1, 2, 3, 9, 10, -1], 0, 10, 5), [2, 2, 0, 0, 1])
+  same(hist([-10, -6, -5, -1, 0, 5], -10, 0, 2), [2, 2])
+  let h2: [i64] = []
+  same(hist(h2, 0, 4, 2), [0, 0])
+  same(hist([-1, -2, -3, 3], 0, 3, 3), [0, 0, 0])
+  same(hist([-7, -4, -3, 2], -6, 3, 3), [1, 1, 1])
+} end ref_hist

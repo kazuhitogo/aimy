@@ -1,0 +1,7 @@
+test ref_safe_div {
+  safe_div(7, 2) == Ok(3)
+  safe_div(-7, 2) == Ok(-3)
+  safe_div(1, 0) == Err("division by zero")
+  safe_div(-9223372036854775808, -1) == Err("overflow")
+  safe_div(-9223372036854775808, 1) == Ok(-9223372036854775808)
+} end ref_safe_div

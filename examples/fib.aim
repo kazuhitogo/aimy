@@ -1,0 +1,19 @@
+# Recursive Fibonacci with a contract and tests.
+
+fn fib(n: i64) -> i64
+  requires n >= 0
+{
+  if n < 2 { ret n }
+  ret fib(n - 1) + fib(n - 2)
+} end fib
+
+fn main() ! io {
+  let n = arg(0)
+  print("fib", n, "=", fib(n))
+} end main
+
+test fib {
+  fib(0) == 0
+  fib(1) == 1
+  fib(10) == 55
+} end fib

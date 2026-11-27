@@ -1,0 +1,5 @@
+test ref_count_unique {
+  count_unique([]) == 0
+  count_unique([1, 1, 1]) == 1
+  count_unique([3, 1, 3, 2, 1]) == 3
+} end ref_count_unique

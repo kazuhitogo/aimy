@@ -1,0 +1,6 @@
+test ref_light {
+  after(Light.Red, 0) == Light.Red
+  after(Light.Red, 1) == Light.Green
+  after(Light.Green, 2) == Light.Red
+  after(Light.Yellow, 1000000000000000000) == Light.Red
+} end ref_light

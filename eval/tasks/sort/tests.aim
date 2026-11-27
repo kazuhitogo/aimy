@@ -1,0 +1,19 @@
+fn same(a: [i64], b: [i64]) -> bool {
+  if len(a) != len(b) { ret false }
+  for i in 0..len(a) {
+    if a[i] != b[i] { ret false }
+  }
+  ret true
+} end same
+
+test ref_sort {
+  let mut a: [i64] = [3, 1, 2]
+  sort(mut a)
+  same(a, [1, 2, 3])
+  let mut b: [i64] = []
+  sort(mut b)
+  same(b, [])
+  let mut c: [i64] = [5, 5, -1, 9, 0]
+  sort(mut c)
+  same(c, [-1, 0, 5, 5, 9])
+} end ref_sort

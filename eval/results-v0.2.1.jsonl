@@ -1,0 +1,30 @@
+{"task": "bank", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 443}
+{"task": "binary_search", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 295}
+{"task": "checked_sum", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 323}
+{"task": "classify", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 460}
+{"task": "collatz", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 231}
+{"task": "count_evens", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 138}
+{"task": "count_unique", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 242}
+{"task": "digit_sum", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 152}
+{"task": "dist2", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 159}
+{"task": "dot", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 148}
+{"task": "fib", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 134}
+{"task": "find_index", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 140}
+{"task": "gcd", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 177}
+{"task": "is_prime", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 219}
+{"task": "last_or", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 112}
+{"task": "light", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 326}
+{"task": "max_array", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 150}
+{"task": "mean", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 146}
+{"task": "mean_checked", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 190}
+{"task": "min_pos", "first_compile": false, "first_pass": false, "rounds": 1, "passed": true, "chars_out": 573, "first_fail": ["E302"]}
+{"task": "pow_mod", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 255}
+{"task": "prefix_sums", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 171}
+{"task": "rect_area", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 184}
+{"task": "reverse", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 161}
+{"task": "safe_div", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 215}
+{"task": "sort", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 259}
+{"task": "stack_calc", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 697}
+{"task": "sum_array", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 128}
+{"task": "sum_to", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 113}
+{"summary": {"tasks": 29, "first_compile": 28, "first_pass": 28, "passed": 29, "avg_rounds": 0.03, "chars_out": 6941}}

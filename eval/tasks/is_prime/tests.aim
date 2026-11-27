@@ -1,0 +1,8 @@
+test ref_is_prime {
+  is_prime(-5) == false
+  is_prime(1) == false
+  is_prime(2)
+  is_prime(97)
+  is_prime(91) == false
+  is_prime(7919)
+} end ref_is_prime

@@ -1,0 +1,11 @@
+{"task": "median", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 280}
+{"task": "mid", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 75}
+{"task": "mul_mod", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 95}
+{"task": "identity", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 173}
+{"task": "local_peaks", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 293}
+{"task": "rotate", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 167}
+{"task": "transfer", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 514}
+{"task": "transfer_all", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 744}
+{"task": "avg_i64", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 275}
+{"task": "hist", "first_compile": true, "first_pass": true, "rounds": 0, "passed": true, "chars_out": 284}
+{"summary": {"tasks": 10, "first_compile": 10, "first_pass": 10, "passed": 10, "avg_rounds": 0.0, "chars_out": 2900}}
